@@ -1,7 +1,10 @@
 package com.scaler.productservicedec2023.controller;
 
 import com.scaler.productservicedec2023.models.Product;
+import com.scaler.productservicedec2023.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +12,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
+    private ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+
+
+   // private RestTemplate restTemplate;
+
+ //   @Autowired
+   // public ProductController(RestTemplate restTemplate){
+ //       this.restTemplate =restTemplate;
+ //   }
 
     @GetMapping
     public List<Product> getAllProducts(){
@@ -19,7 +38,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id) {
 
-        return new Product();
+        return productService.getSingleProduct(id);
     }
     @PostMapping()
     public Product addNewProduct(@RequestBody Product product) {
