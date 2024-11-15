@@ -3,6 +3,8 @@ package com.scaler.productservicedec2023.controller;
 import com.scaler.productservicedec2023.models.Product;
 import com.scaler.productservicedec2023.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,9 +32,12 @@ public class ProductController {
  //   }
 
     @GetMapping
-    public List<Product> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts(){
 
-        return new ArrayList<>();
+        ResponseEntity<List<Product>> response = new ResponseEntity<>(
+                productService.getAllProducts(), HttpStatus.ACCEPTED
+        );
+        return response;
     }
 
     @GetMapping("/{id}")
