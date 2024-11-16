@@ -1,8 +1,10 @@
 package com.scaler.productservicedec2023.services;
 
 import com.scaler.productservicedec2023.Dto.FakeStoreProductDto;
+import com.scaler.productservicedec2023.exceptions.ProductNotExistsException;
 import com.scaler.productservicedec2023.models.Category;
 import com.scaler.productservicedec2023.models.Product;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -42,13 +44,20 @@ public class FakeStoreProductService implements ProductService {
 
     }
 
+    @SneakyThrows
     @Override
-    public Product getSingleProduct(Long id) {
+    public Product getSingleProduct(Long id)  {
+
+       // int a = 1 / 0;
+    //    throw new RuntimeException("Something stupid has happened ");
 
       FakeStoreProductDto productDto =  restTemplate.getForObject("https://fakestoreapi.com/products/" + id ,
-                       FakeStoreProductDto.class);
+                   FakeStoreProductDto.class);
 
-
+          if(productDto == null){
+              throw new  ProductNotExistsException(
+                      "Product with id: " + id + "doesn't exist." );
+          }
 
         return convertFakeStoreProductToProduct(productDto);
     }

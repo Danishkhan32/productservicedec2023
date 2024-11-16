@@ -19,6 +19,7 @@ public class ProductController {
 
     @Autowired
     public ProductController(ProductService productService) {
+
         this.productService = productService;
     }
 
@@ -41,9 +42,19 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id) {
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) {
+      //  throw new RuntimeException("Something is wrong Danish");
+  //        try {
+             return new ResponseEntity<> (
+                     productService.getSingleProduct(id) , HttpStatus.OK);
+      //    }
+//          catch (ArithmeticException exception){
+//              ResponseEntity<Product> response = new ResponseEntity<> (HttpStatus.NOT_FOUND);
+//
+//              return response;
+//          }
 
-        return productService.getSingleProduct(id);
+
     }
     @PostMapping()
     public Product addNewProduct(@RequestBody Product product) {
