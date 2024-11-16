@@ -31,4 +31,6 @@ public class ExceptionHandlers {
         dto.setMessage(exception.getMessage());
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
+
+
 }

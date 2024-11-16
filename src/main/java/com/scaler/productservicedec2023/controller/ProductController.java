@@ -1,5 +1,6 @@
 package com.scaler.productservicedec2023.controller;
 
+import com.scaler.productservicedec2023.exceptions.ProductNotExistsException;
 import com.scaler.productservicedec2023.models.Product;
 import com.scaler.productservicedec2023.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,4 +80,10 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id) {
 
     }
+    @ExceptionHandler(ProductNotExistsException.class)
+    public ResponseEntity<Void>handleProductNotExistsException() {
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
