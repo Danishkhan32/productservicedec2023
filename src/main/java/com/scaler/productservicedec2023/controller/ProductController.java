@@ -80,10 +80,10 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id) {
 
     }
-    @ExceptionHandler(ProductNotExistsException.class)
-    public ResponseEntity<Void>handleProductNotExistsException() {
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  //  @ExceptionHandler(ProductNotExistsException.class)
+//    public ResponseEntity<Void>handleProductNotExistsException() {
+//
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }
