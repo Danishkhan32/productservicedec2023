@@ -44,9 +44,9 @@ public class FakeStoreProductService implements ProductService {
 
     }
 
-    @SneakyThrows
+
     @Override
-    public Product getSingleProduct(Long id)  {
+    public Product getSingleProduct(Long id) throws ProductNotExistsException {
 
        // int a = 1 / 0;
     //    throw new RuntimeException("Something stupid has happened ");
@@ -84,6 +84,11 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
+    public Product updateProduct(Long id, Product product) {
+        return null;
+    }
+
+    @Override
     public Product replaceProduct(Long id, Product product) {
 
         RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDto(), FakeStoreProductDto.class);
@@ -94,5 +99,15 @@ public class FakeStoreProductService implements ProductService {
        return convertFakeStoreProductToProduct(response);
        //  new org.springframework.http.HttpMethod("Danish");
 
+    }
+
+    @Override
+    public Product addNewProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteProduct(Long id) {
+        return false;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@Controller
 public class ProductController {
 
     private ProductService productService;
@@ -44,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) {
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) throws ProductNotExistsException {
       //  throw new RuntimeException("Something is wrong Danish");
   //        try {
              return new ResponseEntity<> (
@@ -60,9 +62,7 @@ public class ProductController {
     }
     @PostMapping()
     public Product addNewProduct(@RequestBody Product product) {
-         Product p = new Product();
-         p.setTitle("A new product");
-        return p;
+        return productService.addNewProduct(product);
     }
 
     @PatchMapping("/{id}")
