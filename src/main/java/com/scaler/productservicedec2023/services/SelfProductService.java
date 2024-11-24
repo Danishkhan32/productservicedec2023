@@ -45,7 +45,26 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product updateProduct(Long id, Product product) {
-        return null;
+
+        Optional<Product> productOptional= productRepository.findById(id);
+        if(productOptional.isEmpty()) throw new RuntimeException();
+
+        Product savedProduct= productOptional.get();
+
+        if(product.getTitle() != null){
+            savedProduct.setTitle(product.getTitle());
+        }
+        if(product.getDescription()!= null) {
+            savedProduct.setDescription(product.getDescription());
+        }
+        if(product.getPrice()!= null) {
+            savedProduct.setPrice(product.getPrice());
+        }
+        if(product.getImageUrl()!= null){
+            savedProduct.setImageUrl(product.getImageUrl());
+        }
+
+        return productRepository.save(savedProduct);
     }
 
     @Override
@@ -64,12 +83,12 @@ public class SelfProductService implements ProductService{
 
         Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
           if(categoryOptional.isEmpty()){
-              product.setCategory(categoryRepository.save(product.getCategory()));
+           //   product.setCategory(categoryRepository.save(product.getCategory()));
           }
           else{
               product.setCategory(categoryOptional.get());
           }
-
+      // for MANY TO MANY return null;
         return productRepository.save(product);
     }
 

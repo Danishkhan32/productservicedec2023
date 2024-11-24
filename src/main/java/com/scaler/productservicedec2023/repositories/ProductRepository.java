@@ -2,7 +2,10 @@ package com.scaler.productservicedec2023.repositories;
 
 import com.scaler.productservicedec2023.models.Category;
 import com.scaler.productservicedec2023.models.Product;
+import com.scaler.productservicedec2023.repositories.projections.ProductWithIdAndTitle;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,5 +32,15 @@ public interface ProductRepository
    Optional<Product> findById(Long id);
 
    Product save(Product product);
+
+   @Query ("select p.id as id ,p.title as title from Product p where p.id = :id")
+   List<ProductWithIdAndTitle> somethingsomething(@Param("id") Long id);
+
+    @Query(value = "select p.id as id , p.title as title from product p  where p.id = :id" , nativeQuery = true)
+   List<ProductWithIdAndTitle> somesome2(@Param("id") Long id);
 }
 
+// select *
+// from products p
+// where p.price =
+// and p.description =

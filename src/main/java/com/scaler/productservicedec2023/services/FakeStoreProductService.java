@@ -38,6 +38,10 @@ public class FakeStoreProductService implements ProductService {
         product.setDescription(fakeStoreProduct.getDescription());
         product.setImageUrl(fakeStoreProduct.getImage());
         product.setCategory(new Category());
+        // for MANY TO MANY --  product.setCategory(new ArrayList<>());
+        // Category category = new Category();
+       // Category.setName (fakeStoreProduct.getCategory());
+      //  product.getCategory().add(category);
         product.getCategory().setName(fakeStoreProduct.getCategory());
 
         return product;
