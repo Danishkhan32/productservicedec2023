@@ -39,9 +39,22 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts(){
 
-        ResponseEntity<List<Product>> response = new ResponseEntity<>(
-                productService.getAllProducts(), HttpStatus.ACCEPTED
-        );
+    List<Product> products=  productService.getAllProducts();
+
+       List<Product> finalProducts = new ArrayList<>();
+
+       for(Product p: products) {
+           p.setTitle("Hello" + p.getTitle());
+           finalProducts.add(p);
+       }
+
+      ResponseEntity<List<Product>> response = new ResponseEntity<>(
+              finalProducts, HttpStatus.ACCEPTED
+      );
+
+//       ResponseEntity<List<Product>> response = new ResponseEntity<>(
+//                productService.getAllProducts(), HttpStatus.ACCEPTED
+//      );
         return response;
     }
 
